@@ -81,6 +81,7 @@ class game {
         console.log("in checkGame")
         
         const [isWin, winningSymbol] = this.checkWin()
+
         if (isWin) {
             const player = winningSymbol === "X" ? "PLayer 1" : "PLayer 2"
             console.log(player + " wins!") 
@@ -94,6 +95,7 @@ class game {
     }
     
     checkWin () { 
+        
         console.log("in checkWin")
         let isWin = false;
         let winningSymbol = null;
@@ -113,9 +115,9 @@ class game {
     checkFull () { 
         
         console.log("in checkFull")
-        return this.board.forEach( (element) => {
-                element !== null
-            })
+        return this.board.every( (element) => { 
+            element !== null
+        })
     }
 
     switchTurn () { 
