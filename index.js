@@ -41,7 +41,9 @@ class game {
             element.disabled = false 
         })
         
-        this.startButton.disable = true 
+        this.startButton = document.querySelector(".start")
+        this.startButton.disabled = true
+        
         this.currentTurn = this.player1
     }
     
@@ -113,7 +115,6 @@ class game {
     }
 
     switchTurn () { 
-        console.log("in switchTurn")
         this.currentTurn = this.currentTurn === this.player1 ? this.player2 : this.player1
     }
 
