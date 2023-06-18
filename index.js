@@ -1,5 +1,5 @@
 class game { 
-
+    
     constructor (player1, player2) { 
         this.player1  = player1
         this.player2 = player2  
@@ -14,7 +14,7 @@ class game {
             [0,4,8], 
             [2,4,6]
         ]
-
+        
         this.buttons = document.querySelectorAll(".item button")
         this.buttons.forEach( (element) => { 
             element.addEventListener('click', () => {
@@ -22,7 +22,7 @@ class game {
             })
         })
     }
-
+    
     begin () { 
         
         console.log("in begin")
@@ -35,6 +35,7 @@ class game {
     
     start () { 
         
+        this.clearBoard()
         console.log("in start")
         this.buttons = document.querySelectorAll(".item button")
         this.buttons.forEach((element) => { 
@@ -50,18 +51,21 @@ class game {
     reset () { 
         
         console.log("in reset")
-        this.buttons = document.querySelectorAll(".item button") 
-        this.buttons.forEach( (element) => { 
-            element.textContent = null 
-            element.disabled = true 
-        })
-        
-        this.board.fill(null)
         
         this.begin()
         
     }
     
+    clearBoard() {
+        this.buttons = document.querySelectorAll(".item button")
+        this.buttons.forEach((element) => {
+            element.textContent = null
+            element.disabled = true
+        })
+
+        this.board.fill(null)
+    }
+
     move (element) { 
         console.log("in move")
         let sym = this.currentTurn.marker
@@ -102,9 +106,9 @@ class game {
             isWin = true;
             winningSymbol = symbol1;
         }
-    });
-    return [isWin, winningSymbol];
-}
+        });
+        return [isWin, winningSymbol];
+    }
 
     checkFull () { 
         
