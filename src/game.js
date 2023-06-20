@@ -1,4 +1,7 @@
-class game { 
+import { player } from "./player"
+import { computer } from "./computer"
+
+export class game { 
     
     constructor (player1, player2) { 
         this.player1  = player1
@@ -21,6 +24,8 @@ class game {
                 this.move(element)
             })
         })
+
+        this.scorekeeper = Array(3).fill(0)
     }
     
     begin () { 
@@ -52,6 +57,9 @@ class game {
         
         console.log("in reset")
         
+        this.buttons.forEach((element) => {
+            element.disabled = true
+        })
         this.begin()
         
     }
@@ -60,7 +68,6 @@ class game {
         this.buttons = document.querySelectorAll(".item button")
         this.buttons.forEach((element) => {
             element.textContent = null
-            element.disabled = true
         })
 
         this.board.fill(null)
@@ -80,22 +87,26 @@ class game {
     checkGame () { 
         console.log("in checkGame")
         
-        const [isWin, winningSymbol] = this.checkWin()
+        const [isWinner, winningSymbol] = game.checkWin(this.board)
 
-        if (isWin) {
-            const player = winningSymbol === "X" ? "PLayer 1" : "PLayer 2"
+        if (isWinner) {
+            const player = winningSymbol === "X" ? "Player 1" : "Player 2"
+            winningSymbol === "X" ? this.scorekeeper[0]++ : this.scorekeeper[1]++
             console.log(player + " wins!") 
+            console.log(`Player 1: ${this.scorekeeper[0]}`)
+            console.log(`Player 2: ${this.scorekeeper[1]}`)
             this.reset()
-        }else if (this.checkFull()) { 
+        }else if (game.checkFull(this.board)) { 
             console.log("No winners :(")
+            this.scorekeeper[2]++
             this.reset()
         }else { 
             this.switchTurn()
         }
     }
     
-    checkWin () { 
-        
+    static checkWin (board) { 
+
         console.log("in checkWin")
         let isWin = false;
         let winningSymbol = null;
@@ -105,18 +116,18 @@ class game {
             const symbol2 = this.board[index2];
             const symbol3 = this.board[index3];
             if (symbol1 && symbol1 === symbol2 && symbol2 === symbol3) {
-            isWin = true;
-            winningSymbol = symbol1;
-        }
+                isWin = true;
+                winningSymbol = symbol1;
+            }
         });
         return [isWin, winningSymbol];
     }
 
-    checkFull () { 
+    static checkFull (board) { 
         
         console.log("in checkFull")
         return this.board.every( (element) => { 
-            element !== null
+           return element !== null
         })
     }
 
@@ -124,11 +135,8 @@ class game {
         this.currentTurn = this.currentTurn === this.player1 ? this.player2 : this.player1
     }
 
-}
-
-class player { 
-    constructor (marker) { 
-        this.marker = marker
+    static getBoard () { 
+        return Array.from(this.board)
     }
 }
 
