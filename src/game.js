@@ -1,7 +1,4 @@
-import { player } from "./player"
-import { computer } from "./computer"
-
-export class game { 
+class game { 
     
     constructor (player1, player2) { 
         this.player1  = player1
@@ -87,7 +84,7 @@ export class game {
     checkGame () { 
         console.log("in checkGame")
         
-        const [isWinner, winningSymbol] = game.checkWin(this.board)
+        const [isWinner, winningSymbol] = this.checkWin()
 
         if (isWinner) {
             const player = winningSymbol === "X" ? "Player 1" : "Player 2"
@@ -96,7 +93,7 @@ export class game {
             console.log(`Player 1: ${this.scorekeeper[0]}`)
             console.log(`Player 2: ${this.scorekeeper[1]}`)
             this.reset()
-        }else if (game.checkFull(this.board)) { 
+        }else if (this.checkFull()) { 
             console.log("No winners :(")
             this.scorekeeper[2]++
             this.reset()
@@ -105,7 +102,7 @@ export class game {
         }
     }
     
-    static checkWin (board) { 
+    checkWin () { 
 
         console.log("in checkWin")
         let isWin = false;
@@ -123,7 +120,7 @@ export class game {
         return [isWin, winningSymbol];
     }
 
-    static checkFull (board) { 
+    checkFull () { 
         
         console.log("in checkFull")
         return this.board.every( (element) => { 
@@ -137,6 +134,12 @@ export class game {
 
     static getBoard () { 
         return Array.from(this.board)
+    }
+}
+
+class player { 
+    constructor (marker) { 
+        this.marker = marker
     }
 }
 
