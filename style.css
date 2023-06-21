@@ -9,7 +9,7 @@ body {
 
 .main-container { 
     display: flex; 
-    border: 2px solid red;
+    border: 2px solid black;
     height: 60vh;
     width: 60vw;
     justify-content: center;
@@ -27,11 +27,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid red;
+    border: 2px solid black;
 }
 
 .item > button { 
-    background: black;
+    background: white;
     border: none;
     color: white;
     width: 100%;

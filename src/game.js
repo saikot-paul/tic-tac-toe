@@ -140,6 +140,8 @@ export class game {
     }
 }
 
+export {game}
+
 const player1 = new player("X")
 const player2 = new player("O")
 const newGame = new game(player1, player2)
