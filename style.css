@@ -33,7 +33,7 @@ body {
 .item > button { 
     background: white;
     border: none;
-    color: white;
+    color: black;
     width: 100%;
     height: 100%;
     font-size: 2em;
