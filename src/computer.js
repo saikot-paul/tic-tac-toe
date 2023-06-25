@@ -32,7 +32,7 @@ class computer {
 
     playGame() { 
 
-        while (!this.checkFull() && !this.checkWin(this.human) && !this.checkWin(this.comp)) { 
+        while (!this.gameState()) { 
 
             
             if (this.currentTurn === this.human) { 
@@ -40,7 +40,7 @@ class computer {
                 this.board[choice] = this.human 
                 this.currentTurn = this.comp 
             }else { 
-                let choice = this.bestMove() 
+                let choice = prompt(`Choose a position ${this.findOpen()}`)
                 this.board[choice] = this.comp
                 this.currentTurn = this.human
             }
@@ -162,5 +162,4 @@ class computer {
 }
 
 const game = new computer() 
-game.board = ["X", "O", "X", null, "X", null, "O", null, null]
-console.log(game.bestMove())
+game.playGame()
