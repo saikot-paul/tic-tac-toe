@@ -1,0 +1,127 @@
+export class computer { 
+
+    constructor () { 
+        this.board = Array(9).fill(null)
+        this.wins = [
+            [0,1,2], 
+            [3,4,5], 
+            [6,7,8], 
+            [0,3,6], 
+            [1,4,7], 
+            [2,5,8], 
+            [0,4,8], 
+            [2,4,6]
+        ]
+
+        this.human = "X"
+        this.comp = "O"
+    }
+    
+    bestMove(board) {
+        
+        console.log("In bestMove")
+        console.log(board)
+        let copy = board.map((element) => element)
+        return this.minimax(0, copy, true).index
+    }
+
+    minimax (depth, board, max_player) { 
+
+        console.log("in minimax")
+        console.log(depth)
+        console.log(board)
+        console.log(max_player)
+        
+        const { isWinHuman, isWinComp, isFull } = this._gameCondition(board)
+        
+        if (isWinHuman) { 
+            return {score: -1, index: null} 
+        }else if (isWinComp) { 
+            return {score: 1, index: null} 
+        }else if (isFull) { 
+            return {score: 0, index: null} 
+        }
+
+        if (max_player) { 
+            let best_move = null 
+            let best_score = -Infinity
+            
+            for (const index of this._findOpen(board)) { 
+                board[index] = this.comp
+                let score = this.minimax(depth+1, board, false).score
+                
+                if (best_score < score) { 
+                    best_score = score 
+                    best_move = index
+                }
+            }
+            return {score: best_score, index: best_move}
+        }else { 
+            let best_move = null 
+            let best_score = Infinity
+
+            for (const index of this._findOpen(board)) { 
+                board[index] = this.human
+                let score = this.minimax(depth+1, board, true).score
+                
+                if (best_score > score) { 
+                    best_score = score 
+                    best_move = index
+                }
+            }
+            return {score: best_score, index: best_move}
+        }  
+    }
+    
+    _gameCondition(board) { 
+
+        console.log("in computer: _gameCondition")
+        const isWinHuman = this._checkWin(this.human, board)
+        const isWinComp = this._checkWin(this.comp, board)
+        const isFull = this._checkFull(board)
+        return { isWinHuman, isWinComp, isFull }
+    }
+    
+    _checkWin(symbol, board) { 
+
+        console.log("in computer: _checkWin")
+        let isWin = false 
+        this.wins.forEach( (element) => { 
+
+            let [index1, index2, index3] = element
+            const sym1 = board[index1]
+            const sym2 = board[index2]
+            const sym3 = board[index3]
+
+            if (sym1 && sym1 === sym2 && sym2 === sym3 && sym1 === symbol) { 
+                isWin = true
+            }
+        })
+
+        return isWin
+    }
+    
+    _checkFull(board) { 
+
+        console.log("in computer: _checkFull")
+        return board.every( (element) => { 
+            return element !== null 
+        })
+    }
+
+    _findOpen(board) { 
+
+        console.log("in computer: _findOpen")
+        let moves = []
+
+        board.forEach( (element, index) => { 
+            if (element === null) { 
+                moves.push(index)
+            }
+        })
+        
+        return moves
+    }
+}
+
+

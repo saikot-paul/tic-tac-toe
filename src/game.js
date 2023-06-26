@@ -1,3 +1,5 @@
+import { computer } from "./computer.js"
+
 class game { 
     
     constructor (player1, player2) { 
@@ -23,6 +25,8 @@ class game {
         })
 
         this.scorekeeper = Array(3).fill(0)
+
+        this.comp = new computer()
     }
     
     begin () { 
@@ -72,13 +76,30 @@ class game {
 
     move (element) { 
         console.log("in move")
-        let sym = this.currentTurn.marker
-        element.textContent = sym 
-        element.disabled = true 
+
+        //Click means human goes first 
+
+        const human = this.player1.marker 
+        const cplayer = this.player2.marker 
+
+        //Human Goes First 
         let index = parseInt(element.id.split("-")[1])
-        this.board[index] = sym 
-        
+        element.textContent = human
+        element.disabled = true 
+        this.board[index] = human
+        //Check Condition of the game
         this.checkGame()
+
+        //Computer turn 
+        index = this.comp.bestMove(this.board)
+        console.log("Best move is: " + index)
+        let btn = document.getElementById("btn-" + index )
+        btn.textContent = cplayer
+        btn.disabled = true 
+        this.board[index] = cplayer
+        
+        this.checkGame() 
+        
     }
     
     checkGame () { 
@@ -137,13 +158,5 @@ class game {
     }
 }
 
-class player { 
-    constructor (marker) { 
-        this.marker = marker
-    }
-}
 
-const player1 = new player("X")
-const player2 = new player("O")
-const newGame = new game(player1, player2)
-newGame.begin()
+export {game}
