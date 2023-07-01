@@ -35,9 +35,9 @@ export class computer {
         const { isWinHuman, isWinComp, isFull } = this._gameCondition(board)
         
         if (isWinHuman) { 
-            return {score: -1 + depth, index: null} 
+            return {score: -1, index: null} 
         }else if (isWinComp) { 
-            return {score: 1 - depth, index: null} 
+            return {score: 1, index: null} 
         }else if (isFull) { 
             return {score: 0, index: null} 
         }
