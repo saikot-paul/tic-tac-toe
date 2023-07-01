@@ -21,11 +21,13 @@ export class computer {
         
         console.log("In bestMove")
         console.log(board)
-        let copy = board.map((element) => element)
-        return this.minimax(0, copy, true).index
+        let copy = [...board]
+        let alpha = -Infinity
+        let beta = Infinity
+        return this.minimax(0, copy, alpha, beta, true).index
     }
 
-    minimax (depth, board, max_player) { 
+    minimax (depth, board, alpha, beta, max_player) { 
 
         console.log("in minimax")
         console.log(depth)
@@ -49,11 +51,17 @@ export class computer {
             for (const index of this._findOpen(board)) { 
                 const boardCopy = [...board]
                 boardCopy[index] = this.comp
-                let score = this.minimax(depth+1, boardCopy, false).score
+                let score = this.minimax(depth+1, boardCopy, alpha, beta, false).score
                 
                 if (best_score < score) { 
                     best_score = score 
                     best_move = index
+                }
+
+                alpha = Math.max(alpha, best_score)
+
+                if (beta <= alpha) { 
+                    break
                 }
             }
             return {score: best_score, index: best_move}
@@ -64,11 +72,17 @@ export class computer {
             for (const index of this._findOpen(board)) { 
                 const boardCopy = [...board]
                 boardCopy[index] = this.human
-                let score = this.minimax(depth+1, boardCopy, true).score
+                let score = this.minimax(depth+1, boardCopy, alpha, beta, true).score
                 
                 if (best_score > score) { 
                     best_score = score 
                     best_move = index
+                }
+
+                beta = Math.min(beta, best_score)
+
+                if (beta <= alpha) { 
+                    break
                 }
             }
             return {score: best_score, index: best_move}
