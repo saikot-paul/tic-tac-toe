@@ -35,9 +35,9 @@ export class computer {
         const { isWinHuman, isWinComp, isFull } = this._gameCondition(board)
         
         if (isWinHuman) { 
-            return {score: -1, index: null} 
+            return {score: -1 + depth, index: null} 
         }else if (isWinComp) { 
-            return {score: 1, index: null} 
+            return {score: 1 - depth, index: null} 
         }else if (isFull) { 
             return {score: 0, index: null} 
         }
@@ -47,8 +47,9 @@ export class computer {
             let best_score = -Infinity
             
             for (const index of this._findOpen(board)) { 
-                board[index] = this.comp
-                let score = this.minimax(depth+1, board, false).score
+                const boardCopy = [...board]
+                boardCopy[index] = this.comp
+                let score = this.minimax(depth+1, boardCopy, false).score
                 
                 if (best_score < score) { 
                     best_score = score 
@@ -61,8 +62,9 @@ export class computer {
             let best_score = Infinity
 
             for (const index of this._findOpen(board)) { 
-                board[index] = this.human
-                let score = this.minimax(depth+1, board, true).score
+                const boardCopy = [...board]
+                boardCopy[index] = this.human
+                let score = this.minimax(depth+1, boardCopy, true).score
                 
                 if (best_score > score) { 
                     best_score = score 
