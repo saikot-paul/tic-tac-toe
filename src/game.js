@@ -87,6 +87,7 @@ class game {
         element.textContent = human
         element.disabled = true 
         this.board[index] = human
+
         //Check Condition of the game
         this.checkGame()
 
@@ -105,40 +106,42 @@ class game {
     checkGame () { 
         console.log("in checkGame")
         
-        const [isWinner, winningSymbol] = this.checkWin()
+        const isWinHuman = this.checkWin(this.player1.marker)
+        const isWinComp = this.checkWin(this.player2.marker)
+        const isFull = this.checkFull()
 
-        if (isWinner) {
-            const player = winningSymbol === "X" ? "Player 1" : "Player 2"
-            winningSymbol === "X" ? this.scorekeeper[0]++ : this.scorekeeper[1]++
-            console.log(player + " wins!") 
-            console.log(`Player 1: ${this.scorekeeper[0]}`)
-            console.log(`Player 2: ${this.scorekeeper[1]}`)
+        if (isWinHuman) { 
+            this.scorekeeper[0]++
+            console.log("Human Wins")
             this.reset()
-        }else if (this.checkFull()) { 
-            console.log("No winners :(")
+        }else if (isWinComp) { 
             this.scorekeeper[2]++
+            console.log("Comp Wins")
+            this.reset()
+        }else if (isFull) { 
+            this.scorekeeper[1]++
+            console.log("Tie")
             this.reset()
         }else { 
             this.switchTurn()
         }
+
     }
     
-    checkWin () { 
+    checkWin (symbol) { 
 
         console.log("in checkWin")
         let isWin = false;
-        let winningSymbol = null;
         this.wins.forEach(indices => {
             const [index1, index2, index3] = indices;
             const symbol1 = this.board[index1];
             const symbol2 = this.board[index2];
             const symbol3 = this.board[index3];
-            if (symbol1 && symbol1 === symbol2 && symbol2 === symbol3) {
+            if (symbol1 && symbol1 === symbol2 && symbol2 === symbol3 && symbol === symbol1) {
                 isWin = true;
-                winningSymbol = symbol1;
             }
         });
-        return [isWin, winningSymbol];
+        return isWin;
     }
 
     checkFull () { 
@@ -153,9 +156,6 @@ class game {
         this.currentTurn = this.currentTurn === this.player1 ? this.player2 : this.player1
     }
 
-    static getBoard () { 
-        return Array.from(this.board)
-    }
 }
 
 
