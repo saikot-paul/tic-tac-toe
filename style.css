@@ -53,6 +53,10 @@ body {
     gap: 0.5em;
 }
 
+.title { 
+    font-size: 1.5em;
+}
+
 .pulsing-red {
     animation: pulse 1s;
     animation-iteration-count: 5;
