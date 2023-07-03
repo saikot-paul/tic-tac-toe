@@ -60,7 +60,7 @@ body {
 
 .pulsing-red {
     animation: pulse 1s;
-    animation-iteration-count: 5;
+    animation-iteration-count: 2.5;
 }
 
 @keyframes pulse {
