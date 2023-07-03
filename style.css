@@ -45,6 +45,7 @@ body {
 
 .new-game {
     border-radius: 10px;
+    font-size: 1.5em;
 }
 
 .game-operations { 
