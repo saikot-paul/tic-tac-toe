@@ -69,7 +69,12 @@ class game {
 
         const title = document.getElementById("title")
         title.textContent = "GAME OVER"
-        title.classList.add('pulsing-red')
+        title.classList.add('pulsing-red')            
+        
+        setTimeout(() => {
+            title.textContent = "Click Start Game to play again"
+        }, 2500);
+
 
         this.begin()
         
