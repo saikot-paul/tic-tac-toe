@@ -31,22 +31,25 @@ class game {
     
     begin () { 
         
-        console.log("in begin")
         this.startButton = document.querySelector(".start")
         this.startButton.disabled = false 
         this.startButton.addEventListener('click', () => { 
             this.start()
         })
+
     }
     
     start () { 
         
         this.clearBoard()
-        console.log("in start")
         this.buttons = document.querySelectorAll(".item button")
         this.buttons.forEach((element) => { 
             element.disabled = false 
         })
+
+        const title = document.getElementById("title") 
+        title.textContent = "TIC-TAC-TOE"
+        title.classList.remove('pulsing-red')
         
         this.startButton = document.querySelector(".start")
         this.startButton.disabled = true
@@ -55,12 +58,19 @@ class game {
     }
     
     reset () { 
-        
-        console.log("in reset")
+
+        const score = document.getElementsByClassName("score")[0]
+
+        score.textContent = "Wins-Loss-Ties: " +  this.scorekeeper[0] + "-" + this.scorekeeper[1] + "-" + this.scorekeeper[2]
         
         this.buttons.forEach((element) => {
             element.disabled = true
         })
+
+        const title = document.getElementById("title")
+        title.textContent = "GAME OVER"
+        title.classList.add('pulsing-red')
+
         this.begin()
         
     }
@@ -75,7 +85,6 @@ class game {
     }
 
     move (element) { 
-        console.log("in move")
 
         //Click means human goes first 
 
@@ -93,7 +102,6 @@ class game {
 
         //Computer turn 
         index = this.comp.bestMove(this.board)
-        console.log("Best move is: " + index)
         let btn = document.getElementById("btn-" + index )
         btn.textContent = cplayer
         btn.disabled = true 
@@ -104,7 +112,6 @@ class game {
     }
     
     checkGame () { 
-        console.log("in checkGame")
         
         const isWinHuman = this.checkWin(this.player1.marker)
         const isWinComp = this.checkWin(this.player2.marker)
@@ -112,15 +119,12 @@ class game {
 
         if (isWinHuman) { 
             this.scorekeeper[0]++
-            console.log("Human Wins")
             this.reset()
         }else if (isWinComp) { 
             this.scorekeeper[2]++
-            console.log("Comp Wins")
             this.reset()
         }else if (isFull) { 
             this.scorekeeper[1]++
-            console.log("Tie")
             this.reset()
         }else { 
             this.switchTurn()
@@ -130,7 +134,6 @@ class game {
     
     checkWin (symbol) { 
 
-        console.log("in checkWin")
         let isWin = false;
         this.wins.forEach(indices => {
             const [index1, index2, index3] = indices;
@@ -145,8 +148,7 @@ class game {
     }
 
     checkFull () { 
-        
-        console.log("in checkFull")
+    
         return this.board.every( (element) => { 
            return element !== null
         })

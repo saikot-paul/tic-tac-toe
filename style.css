@@ -47,3 +47,28 @@ body {
     border-radius: 10px;
 }
 
+.game-operations { 
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.pulsing-red {
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { 
+        color: red;
+        font-size: 2em;
+    }
+    50% { 
+        color: #ff6666; 
+        font-size: 4em;
+    } 
+    100% { 
+        color: red; 
+        font-size: 2em;
+    }
+}
+  

@@ -19,8 +19,6 @@ export class computer {
     
     bestMove(board) {
         
-        console.log("In bestMove")
-        console.log(board)
         let copy = [...board]
         let alpha = -Infinity
         let beta = Infinity
@@ -28,11 +26,6 @@ export class computer {
     }
 
     minimax (depth, board, alpha, beta, max_player) { 
-
-        console.log("in minimax")
-        console.log(depth)
-        console.log(board)
-        console.log(max_player)
         
         const { isWinHuman, isWinComp, isFull } = this._gameCondition(board)
         
@@ -91,7 +84,6 @@ export class computer {
     
     _gameCondition(board) { 
 
-        console.log("in computer: _gameCondition")
         const isWinHuman = this._checkWin(this.human, board)
         const isWinComp = this._checkWin(this.comp, board)
         const isFull = this._checkFull(board)
@@ -100,7 +92,6 @@ export class computer {
     
     _checkWin(symbol, board) { 
 
-        console.log("in computer: _checkWin")
         let isWin = false 
         this.wins.forEach( (element) => { 
 
@@ -119,7 +110,6 @@ export class computer {
     
     _checkFull(board) { 
 
-        console.log("in computer: _checkFull")
         return board.every( (element) => { 
             return element !== null 
         })
@@ -127,7 +117,6 @@ export class computer {
 
     _findOpen(board) { 
 
-        console.log("in computer: _findOpen")
         let moves = []
 
         board.forEach( (element, index) => { 
