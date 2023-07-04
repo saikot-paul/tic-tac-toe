@@ -61,7 +61,7 @@ class game {
 
         const score = document.getElementsByClassName("score")[0]
 
-        score.textContent = "Wins-Loss-Ties: " +  this.scorekeeper[0] + "-" + this.scorekeeper[1] + "-" + this.scorekeeper[2]
+        score.textContent = "Wins-Ties-Loss: " +  this.scorekeeper[0] + "-" + this.scorekeeper[1] + "-" + this.scorekeeper[2]
         
         this.buttons.forEach((element) => {
             element.disabled = true
