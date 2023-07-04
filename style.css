@@ -41,6 +41,7 @@ body {
 
 .start {
     border-radius: 10px;
+    font-size: 1.25rem;
 }
 
 .new-game {
@@ -78,4 +79,7 @@ body {
         transform: scale(1);
     }
 }
-  
+
+.score { 
+    font-size: 1.25rem;
+}
